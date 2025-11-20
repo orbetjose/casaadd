@@ -13,8 +13,8 @@ export default function BannerUnete() {
             />
           </picture>
         </div>
-        <div className="flex-1 relative h-full scale-98 bg-black-unete ">
-          <div className="border absolute border-white top-1/2 left-1/2 translate-middle px-6 pb-6 pt-4">
+        <div className="flex-1 relative h-[80vh] scale-98 bg-black-unete ">
+          <div className="border absolute border-white top-1/2 left-1/2 translate-middle px-6 pb-6 pt-4 ">
             <span className="font-alata-regular text-old-silver text-center block pb-4 uppercase">Casa</span>
             <img
               className=""

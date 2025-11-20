@@ -280,8 +280,22 @@ body {
 .seccion-blog h1, .seccion-blog h2, .seccion-blog h3 {
   font-family: 'Alata-Regular', sans-serif;
   color: var(--color-old-silver);
-  font-size: var(--text-3xl);
+  font-size: var(--text-2xl);
+  line-height: 1.8rem;
   text-transform: uppercase;
+}
+
+.seccion-blog h4 {
+  font-family: 'Alata-Regular', sans-serif;
+  color: var(--color-old-silver);
+  font-size: var(--text-xl);
+  margin-bottom: 10px;
+}
+
+.seccion-blog ul {
+  list-style: disc;
+  padding-left: 30px;
+  margin-bottom: 20px;
 }
 
 .seccion-blog .contenido p{

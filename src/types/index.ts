@@ -4,6 +4,9 @@ export type Menu = {
 };
 
 export type infoPost = {
+  id: number;
+  slug: string;
+  date: string;
   title: {
     rendered: string;
   };

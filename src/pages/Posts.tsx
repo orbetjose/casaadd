@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import NotFound from "./NotFound";
 
 export default function Posts() {
-  const domain = import.meta.env.VITE_WP_DOMAIN;
-
   const [infoPost, setinfoPost] = useState<infoPost[]>([]);
   const { slug } = useParams<{ slug: string }>();
   const [loading, setLoading] = useState(true);
@@ -49,40 +47,23 @@ export default function Posts() {
           <h1 className="absolute right-4 bottom-2 !text-white !text-2xl">{infoPost[0].title.rendered}</h1>
         </picture>
       </section>
-      <section className="mt-10">
-        <div className="flex flex-col md:flex-row items-center justify-evenly md:max-w-6xl mx-auto px-4 md:px-0 ">
-          <div className="md:w-2/5 flex items-center">
-            <img
-              src={infoPost[0].acf?.seccion_1?.imagen.url}
-              alt=""
-            />
-          </div>
-          <div
-            className="md:w-2/5 font-prompt-light contenido"
-            dangerouslySetInnerHTML={{ __html: infoPost[0].acf?.seccion_1?.contenido }}></div>
-        </div>
-      </section>
-      <section className="my-20">
-        <div className="flex flex-col-reverse md:flex-row items-center justify-evenly md:max-w-6xl mx-auto px-4 md:px-0 ">
-          <div
-            className="md:w-2/5 font-prompt-light contenido"
-            dangerouslySetInnerHTML={{ __html: infoPost[0].acf?.seccion_2?.contenido }}></div>
-          <div className="md:w-2/5 flex items-center">
-            <img
-              src={infoPost[0].acf?.seccion_2?.imagen.url}
-              alt=""
-            />
-          </div>
-        </div>
-      </section>
-      <section className="md:max-w-6xl mx-auto ">
+      <section className="md:max-w-5xl mx-auto pt-10">
         <div className="flex justify-center ">
-            <img src={infoPost[0].acf?.seccion_final?.imagen_1.url} alt="" className="object-contain md:max-h-[70vh] hidden md:block" />
-            <img src={infoPost[0].acf?.seccion_final?.imagen_2.url} alt="" className="object-cover md:max-h-[70vh]" />
+          <img
+            src={infoPost[0].acf?.seccion_final?.imagen_1.url}
+            alt=""
+            className="object-contain md:max-h-[70vh] hidden md:block"
+          />
+          <img
+            src={infoPost[0].acf?.seccion_final?.imagen_2.url}
+            alt=""
+            className="object-cover md:max-h-[70vh]"
+          />
         </div>
-        <div className="px-4 md:px-0 flex flex-col md:flex-row gap-4 md:gap-0 justify-evenly py-10 font-prompt-light">
-            <div className="md:w-2/5" dangerouslySetInnerHTML={{ __html: infoPost[0].acf?.seccion_final?.contenido_1 }}></div>
-            <div className="md:w-2/5" dangerouslySetInnerHTML={{ __html: infoPost[0].acf?.seccion_final?.contenido_2 }}></div>
+        <div className="px-4 md:px-0 md:gap-0 justify-evenly py-10 font-prompt-light">
+          <div
+            className="contenido"
+            dangerouslySetInnerHTML={{ __html: infoPost[0].acf?.seccion_final?.contenido_1 }}></div>
         </div>
       </section>
     </main>

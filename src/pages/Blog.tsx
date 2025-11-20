@@ -1,9 +1,37 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import BannerUnete from "../components/BannerUnete";
+import type { infoPost } from "../types";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Blog() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
+  const [infoPost, setinfoPost] = useState<infoPost[]>([]);
+
+  useEffect(() => {
+    try {
+      const res = fetch(`${domain}wp-json/wp/v2/posts`);
+      const data = res.then((response) => response.json());
+      data.then((posts) => {
+        setinfoPost(posts);
+      });
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  }, []);
+
+  const sliceInfoPost = infoPost.slice(0, 3);
+
+  const handleDate = (dateString: string) => {
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("es-ES", {
+      month: "long",
+      year: "numeric",
+      day: "numeric",
+    });
+  };
 
   return (
     <>
@@ -15,7 +43,7 @@ export default function Blog() {
             alt="Banner blog Casa ADD"
           />
           <img
-            src={`${domain}wp-content/uploads/2025/10/blog-responsive.webp`}
+            src={`${domain}wp-content/uploads/2025/11/Banner01-5.webp`}
             className="md:hidden"
             alt="Banner blog Casa ADD"
           />
@@ -29,7 +57,7 @@ export default function Blog() {
               alt="Quienes somos foto 1"
               className="md:max-h-[100vh] 2xl:max-h-[80vh] w-full md:object-contain object-center "
             />
-            <div className="flex flex-col ps-10 2xl:ps-20">
+            <div className="flex flex-col md:ps-10 2xl:ps-20">
               <span className="font-alata-regular text-lg text-old-silver inline-block pt-2">Julio 12, 2025</span>
               <span className="font-alata-regular text-old-silver inline-block"> Cras dapibus. Vivamus elementum</span>
               <span className="font-alata-regular text-old-silver inline-block underline">Leer más</span>
@@ -41,11 +69,35 @@ export default function Blog() {
               alt="Quienes somos foto 2"
               className="md:max-h-[100vh] 2xl:max-h-[80vh] w-full md:object-contain object-center "
             />
-            <div className="flex flex-col ps-10 2xl:ps-20">
+            <div className="flex flex-col md:ps-10 2xl:ps-20">
               <span className="font-alata-regular text-lg text-old-silver inline-block pt-2">Julio 12, 2025</span>
               <span className="font-alata-regular text-old-silver inline-block"> Cras dapibus. Vivamus elementum</span>
               <span className="font-alata-regular text-old-silver inline-block underline">Leer más</span>
             </div>
+          </div>
+        </div>
+      </section>
+      <section className="pb-16">
+        <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
+          <h4 className="uppercase font-alata-regular text-old-silver text-2xl pb-4 leading-5">últimos artículos</h4>
+          <div className="grid grid-cols-2 md:flex md:flex-row flex-col md:gap-4 gap-4">
+            {sliceInfoPost.map((post) => (
+              <div
+                key={post.id}
+                className="md:w-[33%] font-alata-regular text-old-silver leading-5">
+                <Link to={`/blog/${post.slug}`}>
+                  <img
+                    src={post.acf?.banner?.url}
+                    className="h-35 md:h-80 w-full object-cover"
+                    alt=""
+                  />
+                  <div className="flex flex-col gap-1 pt-2">
+                    <span className="">{handleDate(post.date)}</span>
+                    <span>{post.title.rendered}</span>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -95,12 +147,14 @@ export default function Blog() {
           </div>
         </div>
       </section>
-      <section className="py-16 md:block hidden">
+      <section className="py-16 ">
         <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
           <h3 className="font-alata-regular text-old-silver text-2xl uppercase pb-10">Del día</h3>
           <div className="relative">
             <button className="swiper-button-prev swiper-button-prev-beneficios"></button>
             <button className="swiper-button-next swiper-button-next-beneficios"></button>
+            <div className="swiper-pagination-beneficios"></div>
+
             <Swiper
               watchOverflow={false}
               loop={false}
@@ -108,6 +162,10 @@ export default function Blog() {
               navigation={{
                 prevEl: ".swiper-button-prev-beneficios",
                 nextEl: ".swiper-button-next-beneficios",
+              }}
+              pagination={{
+                dynamicBullets: true,
+                el: ".swiper-pagination-beneficios",
               }}
               breakpoints={{
                 320: {
@@ -122,15 +180,19 @@ export default function Blog() {
               className="">
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/gMLeh_4TLis">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/gMLeh_4TLis">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-5.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-01.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Septiembre 12, 2025</span>
-                  <a href="https://www.youtube.com/shorts/gMLeh_4TLis">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/gMLeh_4TLis">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">
                       Familia sobre ser modelo WC - Parte 1
                     </span>
@@ -139,45 +201,57 @@ export default function Blog() {
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/aRuSAs7n4uM">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/aRuSAs7n4uM">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-6.png`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-02.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Septiembre 24, 2025</span>
-                  <a href="https://www.youtube.com/shorts/aRuSAs7n4uM">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/aRuSAs7n4uM">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">Consejos para una WC</span>
                   </a>
                 </div>
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/bzfu6kAaG1M">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/bzfu6kAaG1M">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-7.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-03.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Septiembre 11, 2025</span>
-                  <a href="https://www.youtube.com/shorts/bzfu6kAaG1M">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/bzfu6kAaG1M">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">Nikki Night en Casa ADD</span>
                   </a>
                 </div>
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/LSQr36n-3KU">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/LSQr36n-3KU">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-8.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-04.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg">Septiembre 10, 2025</span>
-                  <a href="https://www.youtube.com/shorts/LSQr36n-3KU">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/LSQr36n-3KU">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2">
                       Respondiendo al hate en Casa ADD
                     </span>
@@ -186,15 +260,19 @@ export default function Blog() {
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/odXY5QXLTx4">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/odXY5QXLTx4">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-9.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-05.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Septiembre 23, 2025</span>
-                  <a href="https://www.youtube.com/shorts/odXY5QXLTx4">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/odXY5QXLTx4">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">
                       Sesión de fotos Amor y Amistad
                     </span>
@@ -203,15 +281,19 @@ export default function Blog() {
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/no1GhiYzkL4">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/no1GhiYzkL4">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-9.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-06.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Septiembre 26, 2025</span>
-                  <a href="https://www.youtube.com/shorts/no1GhiYzkL4">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/no1GhiYzkL4">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">
                       Los Juguetes Favoritos de una Modelo WC
                     </span>
@@ -220,15 +302,19 @@ export default function Blog() {
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/fU7_uKX1FfI">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/fU7_uKX1FfI">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-9.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-07.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Septiembre 04, 2025</span>
-                  <a href="https://www.youtube.com/shorts/fU7_uKX1FfI">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/fU7_uKX1FfI">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">
                       ¿Qué les dirías a tus usuarios sobre Colombia?
                     </span>
@@ -237,30 +323,38 @@ export default function Blog() {
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/oTg-8Zagcto">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/oTg-8Zagcto">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-9.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-08.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Agosto 30, 2025</span>
-                  <a href="https://www.youtube.com/shorts/oTg-8Zagcto">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/oTg-8Zagcto">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">Casa ADD en BANTOKENS</span>
                   </a>
                 </div>
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/CxUpvl1fIz8">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/CxUpvl1fIz8">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-9.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-09.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Agosto 27, 2025</span>
-                  <a href="https://www.youtube.com/shorts/CxUpvl1fIz8">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/CxUpvl1fIz8">
                     <span className="font-alata-regular text-old-silver leading-4 pt-2 ">
                       Ruleta de premios en Lalexpo 2025
                     </span>
@@ -269,18 +363,20 @@ export default function Blog() {
               </SwiperSlide>
               <SwiperSlide className="">
                 <div className="flex flex-col">
-                  <a href="https://www.youtube.com/shorts/i_Typ44ozr0">
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/i_Typ44ozr0">
                     <img
-                      src={`${domain}wp-content/uploads/2025/10/Grupo-9.webp`}
-                      className="md:h-80 w-full object-cover mb-2"
+                      src={`${domain}wp-content/uploads/2025/11/PORTADA-010.webp`}
+                      className="h-100 md:h-80 w-full object-cover mb-2"
                       alt=""
                     />
                   </a>
                   <span className="font-alata-regular text-dark-silver text-lg ">Agosto 26, 2025</span>
-                  <a href="https://www.youtube.com/shorts/i_Typ44ozr0">
-                    <span className="font-alata-regular text-old-silver leading-4 pt-2 ">
-                      Oh My Queens & Casa ADD
-                    </span>
+                  <a
+                    target="_blank"
+                    href="https://www.youtube.com/shorts/i_Typ44ozr0">
+                    <span className="font-alata-regular text-old-silver leading-4 pt-2 ">Oh My Queens & Casa ADD</span>
                   </a>
                 </div>
               </SwiperSlide>
@@ -288,7 +384,7 @@ export default function Blog() {
           </div>
         </div>
       </section>
-      <section className="py-16">
+      <section className="mb-16">
         <BannerUnete />
       </section>
     </>

@@ -36,7 +36,7 @@ function App() {
           element={<Blog />}
         />
         <Route
-          path="/post/:slug"
+          path="/blog/:slug"
           element={<Posts />}
         />
       </Routes>
