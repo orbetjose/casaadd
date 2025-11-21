@@ -4,13 +4,13 @@ export default function Footer() {
     <footer className="pb-10">
       <section>
         <img
-          className=" h-16 md:h-20 w-full object-cover"
+          className=" h-16 md:h-20 2xl:h-25 w-full object-cover"
           src={`${domain}wp-content/uploads/2025/09/footer-cinta.png`}
           alt="Casa ADD Footer"
         />
         <div className="max-w-5xl mx-auto px-4 md:px-0 justify-between text-pink font-prompt-regular pt-8">
           <div className="md:flex-row flex flex-col gap-4 md:gap-0">
-            <div className="flex-1">
+            <div className="flex-1 text-center">
               <div className="font-prompt-regular flex flex-col gap-2  mb-2 ">
                 <a
                   href={`${domain}wp-content/uploads/2025/10/politica-de-tratamiento-de-datos-personales.pdf`}
@@ -23,9 +23,9 @@ export default function Footer() {
                   Términos y condiciones
                 </a>
               </div>
-              <div className="border-b-2 border-pink pb-2 w-45"></div>
+              <div className="border-b-2 border-pink pb-2 w-45 mx-auto"></div>
             </div>
-            <div className="flex-1 md:text-center">
+            <div className="flex-1 text-center">
               <p>
                 <a
                   href="https://api.whatsapp.com/send/?phone=573053746476&text=Hola%2C+quiero+m%C3%A1s+informaci%C3%B3n&type=phone_number&app_absent=0"
@@ -35,19 +35,19 @@ export default function Footer() {
                 </a>
               </p>
             </div>
-            <div className="flex-1 md:text-right">
+            <div className="flex-1 text-center">
               <p><a href="/contacto">Trabaja con nosotros</a></p>
             </div>
           </div>
           <div className="md:flex-row flex flex-col gap-4 md:gap-0 pt-4">
-            <div className="flex-1">
+            <div className="flex-1 text-center">
               <div>
                 <p className="font-alata-regular leading-5">
                   Síguenos en nuestras <br />
                   redes sociales
                 </p>
               </div>
-              <div className="flex gap-2 pt-4">
+              <div className="flex justify-center gap-2 pt-4">
                 <a
                   target="_blank"
                   href="https://www.instagram.com/casa_add/#">
@@ -78,19 +78,19 @@ export default function Footer() {
               </div>
               <div></div>
             </div>
-            <div className="flex-1 leading-5 md:text-center">
+            <div className="flex-1 leading-5 text-center">
               <p>
                 Comunícate con: <br /> <a href="mailto:contacto@casaadd.com">contacto@casaadd.com</a>
               </p>
             </div>
-            <div className="flex-1 leading-5 md:text-right">
+            <div className="flex-1 leading-5 text-center">
               <p>
                 ¿Estás interesad@ en hacer <br />
                 parte del equipo Casa ADD?
               </p>
               <a
                 href="/contacto"
-                className="mt-4 bg-pink text-white block w-fit px-2 py-1 rounded-sm md:ms-auto">
+                className="mt-4 bg-pink text-white block w-fit px-2 py-1 rounded-sm mx-auto">
                 Hazte notar
               </a>
             </div>

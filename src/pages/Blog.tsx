@@ -3,7 +3,6 @@ import { Pagination, Navigation } from "swiper/modules";
 import BannerUnete from "../components/BannerUnete";
 import type { infoPost } from "../types";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 export default function Blog() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
@@ -21,7 +20,7 @@ export default function Blog() {
     }
   }, []);
 
-  const sliceInfoPost = infoPost.slice(0, 3);
+  const sliceInfoPost = infoPost.slice(0, 2);
 
   const handleDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -57,10 +56,10 @@ export default function Blog() {
               alt="Quienes somos foto 1"
               className="md:max-h-[100vh] 2xl:max-h-[80vh] w-full md:object-contain object-center "
             />
-            <div className="flex flex-col md:ps-10 2xl:ps-20">
-              <span className="font-alata-regular text-lg text-old-silver inline-block pt-2">Julio 12, 2025</span>
-              <span className="font-alata-regular text-old-silver inline-block"> Cras dapibus. Vivamus elementum</span>
-              <span className="font-alata-regular text-old-silver inline-block underline">Leer más</span>
+            <div className="flex flex-col md:ps-6 2xl:ps-20">
+              <span className="font-alata-regular text-lg text-old-silver inline-block pt-2">{handleDate(sliceInfoPost[0]?.date)}</span>
+              <span className="font-alata-regular text-old-silver inline-block"> {sliceInfoPost[0]?.title.rendered}</span>
+              <a href={`/blog/${sliceInfoPost[0]?.slug}`} className="font-alata-regular text-old-silver inline-block underline">Leer más</a>
             </div>
           </div>
           <div className="md:pt-30 flex-1 md:-ml-10">
@@ -69,38 +68,15 @@ export default function Blog() {
               alt="Quienes somos foto 2"
               className="md:max-h-[100vh] 2xl:max-h-[80vh] w-full md:object-contain object-center "
             />
-            <div className="flex flex-col md:ps-10 2xl:ps-20">
-              <span className="font-alata-regular text-lg text-old-silver inline-block pt-2">Julio 12, 2025</span>
-              <span className="font-alata-regular text-old-silver inline-block"> Cras dapibus. Vivamus elementum</span>
-              <span className="font-alata-regular text-old-silver inline-block underline">Leer más</span>
+            <div className="flex flex-col md:ps-6 2xl:ps-20">
+              <span className="font-alata-regular text-lg text-old-silver inline-block pt-2">{handleDate(sliceInfoPost[1]?.date)}</span>
+              <span className="font-alata-regular text-old-silver inline-block"> {sliceInfoPost[1]?.title.rendered}</span>
+              <a href={`/blog/${sliceInfoPost[1]?.slug}`} className="font-alata-regular text-old-silver inline-block underline">Leer más</a>
             </div>
           </div>
         </div>
       </section>
-      <section className="pb-16">
-        <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
-          <h4 className="uppercase font-alata-regular text-old-silver text-2xl pb-4 leading-5">últimos artículos</h4>
-          <div className="grid grid-cols-2 md:flex md:flex-row flex-col md:gap-4 gap-4">
-            {sliceInfoPost.map((post) => (
-              <div
-                key={post.id}
-                className="md:w-[33%] font-alata-regular text-old-silver leading-5">
-                <Link to={`/blog/${post.slug}`}>
-                  <img
-                    src={post.acf?.banner?.url}
-                    className="h-35 md:h-80 w-full object-cover"
-                    alt=""
-                  />
-                  <div className="flex flex-col gap-1 pt-2">
-                    <span className="">{handleDate(post.date)}</span>
-                    <span>{post.title.rendered}</span>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
       <section>
         <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
           <h4 className="uppercase font-alata-regular text-old-silver text-2xl pb-4 leading-5">destacado</h4>

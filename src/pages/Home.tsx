@@ -16,12 +16,12 @@ export default function Home() {
       <section className="relative md:h-[90vh] 2xl:h-[70vh] ">
         <picture>
           <img
-            src={`${domain}wp-content/uploads/2025/11/banner01-1.webp`}
+            src={`${domain}wp-content/uploads/2025/11/bannerhome.webp`}
             className="w-full object-cover md:h-[90vh] 2xl:h-[70vh] md:block hidden"
             alt="Banner home Casa ADD"
           />
           <img
-            src={`${domain}wp-content/uploads/2025/11/banner01-2.webp`}
+            src={`${domain}wp-content/uploads/2025/11/bannerhome-responsive.webp`}
             className="md:hidden"
             alt="Banner home Casa ADD"
           />
@@ -257,8 +257,8 @@ export default function Home() {
         <div>
           <picture>
             <img
-              className="w-full h-[75vh] 2xl:h-[70vh] object-cover"
-              src={`${domain}wp-content/uploads/2025/09/video-1.webp`}
+              className="w-full h-[40vh] md:h-[75vh] 2xl:h-[70vh] object-cover"
+              src={`${domain}wp-content/uploads/2025/11/banner-normal.webp`}
               alt=""
             />
           </picture>
@@ -276,21 +276,21 @@ export default function Home() {
           <div className="flex-1">
             <img
               src={`${domain}wp-content/uploads/2025/11/ADDSTAR01.webp`}
-              alt="Casa ADD Enero poster"
+              alt="Casa ADD Octubre poster"
               className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top border-b-1 border-pink-postale"
             />
             <span className="uppercase font-prompt-semibold text-lg text-old-silver inline-block pt-2">
-              add star enero
+              add star Octubre
             </span>
           </div>
           <div className="md:pt-30 flex-1">
             <img
               src={`${domain}wp-content/uploads/2025/11/ADDSTAR03.webp`}
-              alt="Casa ADD Febrero poster"
+              alt="Casa ADD Noviembre poster"
               className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top border-b-1 border-pink-postale"
             />
             <span className="uppercase font-prompt-semibold text-lg text-old-silver inline-block pt-2">
-              add star febrero
+              add star Noviembre
             </span>
           </div>
         </div>

@@ -33,18 +33,7 @@ export default function Beneficios() {
         </picture>
       </section>
       <Marcas />
-      <section>
-        <div>
-          <picture>
-            <img
-              className="w-full h-[70vh] object-cover"
-              src={`${domain}wp-content/uploads/2025/09/video-beneficios.webp`}
-              alt=""
-            />
-          </picture>
-        </div>
-      </section>
-      <section className="py-16">
+      <section className="pb-16">
         <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
           <h3 className="text-center font-alata-regular text-old-silver text-2xl uppercase tracking-[.3em] pb-10">
             Beneficios

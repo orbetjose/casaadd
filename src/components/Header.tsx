@@ -90,7 +90,7 @@ export default function Header() {
                 >
                   {menuItems.map((item, index) => {
                     let relativePath = new URL(item.permalink).pathname;
-                    if (relativePath.includes("wp")) {
+                    if (relativePath.includes("test3")) {
                       relativePath = relativePath.replace(
                         "/test3",
                         ""
