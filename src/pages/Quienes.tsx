@@ -1,17 +1,26 @@
-export default function Quienes() {
-  const domain = import.meta.env.VITE_WP_DOMAIN;
+import { useEffect, useState } from "react";
+import { getPageInfo } from "../helpers/wp";
+import type { infoPageQuienes } from "../types";
 
+export default function Quienes() {
+  const [infoPage, setPageInfo] = useState<infoPageQuienes[]>([]);
+
+  useEffect(() => {
+    getPageInfo("quienes-somos")
+      .then((data) => setPageInfo(data))
+      .catch((error) => console.error("Error fetching infoPage:", error));
+  }, []);
   return (
     <>
       <section className="relative md:max-h-[95vh]  2xl:h-[70vh]">
         <picture>
           <img
-            src={`${domain}wp-content/uploads/2025/11/banner-01-quienessomos.webp`}
+            src={infoPage[0]?.acf.banner.url}
             className="w-full object-cover md:max-h-[95vh]  2xl:h-[70vh] md:block hidden"
             alt="Banner quienes somos Casa ADD"
           />
           <img
-            src={`${domain}wp-content/uploads/2025/11/banner-01.webp`}
+            src={infoPage[0]?.acf.banner_responsive.url}
             className="md:hidden"
             alt="Banner quienes somos Casa ADD"
           />
@@ -22,21 +31,21 @@ export default function Quienes() {
         <div className="flex md:flex-row flex-col md:h-[75vh]">
           <picture className="flex-1">
             <img
-              src={`${domain}wp-content/uploads/2025/09/foto-4.webp`}
+              src={infoPage[0]?.acf?.galeria[0].imagen.url}
               alt="Foto modelo 4"
               className="object-cover object-center w-full md:h-[75vh] h-[30vh]"
             />
           </picture>
           <picture className="flex-1">
             <img
-              src={`${domain}wp-content/uploads/2025/09/foto-5.webp`}
+              src={infoPage[0]?.acf?.galeria[1].imagen.url}
               alt="Foto modelo 5"
               className="object-cover object-center w-full md:h-[75vh] h-[30vh]"
             />
           </picture>
           <picture className="flex-1">
             <img
-              src={`${domain}wp-content/uploads/2025/09/foto-6.webp`}
+              src={infoPage[0]?.acf?.galeria[2].imagen.url}
               alt="Foto modelo 6"
               className="object-cover md:object-center w-full md:h-[75vh] h-[30vh] "
             />
@@ -48,32 +57,35 @@ export default function Quienes() {
           <div className="text-old-silver pb-8 2xl:ps-22">
             <h3 className="font-alata-regular text-2xl font-bold pb-2 uppercase">quiénes somos</h3>
             <p className="font-prompt-regular md:w-1/2">
-              En Casa ADD diseñamos un espacio seguro, profesional y humano donde las modelos pueden ejercer su
-              profesión con total confianza y proyección. Somos una agencia comprometida con el crecimiento personal y
-              profesional de cada integrante, brindando las herramientas, la estabilidad y el acompañamiento necesarios
-              para que alcancen sus metas y vivan una experiencia de realización plena.
+              {infoPage[0]?.acf?.quienes_somos.texto}
             </p>
           </div>
           <div className="md:flex-row flex justify-center flex-col gap-8 md:gap-0">
             <div className="flex-1 md:-mr-18">
               <img
-                src={`${domain}wp-content/uploads/2025/11/ADD01.webp`}
+                src={infoPage[0]?.acf?.quienes_somos.foto_1.url}
                 alt="Quienes somos foto 1"
                 className="md:max-h-[100vh] 2xl:max-h-[80vh] object-center w-full md:object-contain"
               />
               <span className="font-alata-regular text-lg text-old-silver inline-block pt-2 md:ps-13 2xl:ps-23">
-                Industria con propósito
+                {infoPage[0]?.acf?.quienes_somos.titulo_1}
               </span>
-              <p className="font-alata-regular text-old-silver md:w-2/3 leading-5 md:ps-13 2xl:ps-23">Creemos en una industria emergente donde el talento se respeta, se valora y se impulsa.</p>
+              <p className="font-alata-regular text-old-silver md:w-2/3 leading-5 md:ps-13 2xl:ps-23">
+                {infoPage[0]?.acf?.quienes_somos.descripcion_1}
+              </p>
             </div>
             <div className="md:pt-30 flex-1 md:-ml-18">
               <img
-                src={`${domain}wp-content/uploads/2025/11/ADD02.webp`}
+                src={infoPage[0]?.acf?.quienes_somos.foto_2.url}
                 alt="Quienes somos foto 2"
                 className="md:max-h-[100vh] 2xl:max-h-[80vh] object-center w-full md:object-contain "
               />
-              <span className="font-alata-regular text-lg text-old-silver inline-block pt-2 md:ps-20 2xl:ps-30">Compromiso justo</span>
-              <p className="font-alata-regular text-old-silver md:w-2/3 leading-5 md:ps-20 2xl:ps-30">Ofrecemos un entorno con salario competitivo y condiciones transparentes.</p>
+              <span className="font-alata-regular text-lg text-old-silver block md:ps-6 2xl:ps-20 md:-mt-5">
+                {infoPage[0]?.acf?.quienes_somos.titulo_2}
+              </span>
+              <p className="font-alata-regular text-old-silver md:w-2/3 leading-5 md:ps-6 2xl:ps-20">
+                {infoPage[0]?.acf?.quienes_somos.descripcion_2}
+              </p>
             </div>
           </div>
         </div>
@@ -84,30 +96,32 @@ export default function Quienes() {
           <div className="flex md:flex-row flex-col md:gap-4 gap-8">
             <div className="md:w-[20%] font-alata-regular text-old-silver leading-5">
               <img
-                src={`${domain}wp-content/uploads/2025/10/foto-12.webp`}
+                src={infoPage[0]?.acf?.somos_casa_add[0].imagen.url}
                 className="h-90 w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">Excelencia profesional</p>
-              <p className="leading-5">Fomentamos la responsabilidad, la calidad y el profesionalismo en cada acción.</p>
+              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">{infoPage[0]?.acf?.somos_casa_add[0].titulo}</p>
+              <p className="leading-5">
+                {infoPage[0]?.acf?.somos_casa_add[0].texto}
+              </p>
             </div>
             <div className="md:w-[20%] font-alata-regular text-old-silver leading-5">
               <img
-                src={`${domain}wp-content/uploads/2025/10/foto-13.webp`}
+                src={infoPage[0]?.acf?.somos_casa_add[1].imagen.url}
                 className="h-85 w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">Equipo con empatía</p>
-              <p className="leading-5">Inspiramos desde el respeto, la empatía y el reconocimiento mutuo.</p>
+              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">{infoPage[0]?.acf?.somos_casa_add[1].titulo}</p>
+              <p className="leading-5">{infoPage[0]?.acf?.somos_casa_add[1].texto}</p>
             </div>
             <div className="md:w-[60%] font-alata-regular text-old-silver leading-5">
               <img
-                src={`${domain}wp-content/uploads/2025/10/foto-14.webp`}
+                src={infoPage[0]?.acf?.somos_casa_add[2].imagen.url}
                 className="w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold pt-4">Sin límites</p>
-              <p className="leading-5">Creemos que no existen barreras cuando se trabaja con propósito y dedicación.</p>
+              <p className="uppercase font-semibold font-prompt-semibold pt-4">{infoPage[0]?.acf?.somos_casa_add[2].titulo}</p>
+              <p className="leading-5">{infoPage[0]?.acf?.somos_casa_add[2].texto}</p>
             </div>
           </div>
         </div>
@@ -116,30 +130,34 @@ export default function Quienes() {
         <div className="text-old-silver pb-8 md:max-w-6xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
           <h3 className="font-alata-regular text-2xl font-bold pb-2 uppercase">Nos atrevimos a soñar</h3>
           <p className="font-prompt-regular md:w-1/2">
-            Nuestra misión es <span className="font-bold">inspirar a nuestras modelos</span>, ofrecerles <span className="font-bold">el mejor soporte creativo</span> y <span className="font-bold">conectarlas con estrategias de negocio efectivas</span> que multipliquen sus oportunidades. Queremos que cada persona que toque nuestra marca descubra habilidades que potencien su mejor versión y las lleve a trascender, dentro y fuera del mundo digital.
+            {infoPage[0]?.acf?.nos_atrevimos_a_sonar.texto}
           </p>
         </div>
         <div className="md:flex-row flex justify-center flex-col gap-8 md:gap-0 2xl:max-w-8xl 2xl:mx-auto">
           <div className="flex-1 ">
             <img
-              src={`${domain}wp-content/uploads/2025/11/Foto-Abajo01.webp`}
+              src={infoPage[0]?.acf?.nos_atrevimos_a_sonar.foto_1.url}
               alt="Quienes somos foto 1"
               className="max-h-[70vh] 2xl:max-h-[80vh] w-full object-cover 2xl:object-left object-center"
             />
-            <span className="uppercase font-prompt-semibold text-lg text-old-silver block pt-3 ps-4">Comunidad de confianza</span>
+            <span className="uppercase font-prompt-semibold text-lg text-old-silver block pt-3 ps-4">
+              {infoPage[0]?.acf?.nos_atrevimos_a_sonar.titulo_1}
+            </span>
             <p className="text-old-silver font-alata-regular pt-1 ps-4 md:w-2/3 leading-5">
-              Construimos relaciones basadas en la estabilidad, el apoyo y la comunicación.
+              {infoPage[0]?.acf?.nos_atrevimos_a_sonar.descripcion_1}
             </p>
           </div>
           <div className=" flex-1">
             <img
-              src={`${domain}wp-content/uploads/2025/11/Foto-Abajo02.webp`}
+              src={infoPage[0]?.acf?.nos_atrevimos_a_sonar.foto_2.url}
               alt="Quienes somos foto 2"
               className="max-h-[85vh] 2xl:max-h-[80vh] w-full object-cover 2xl:object-left object-top"
             />
-            <span className="uppercase font-prompt-semibold text-lg text-old-silver block pt-3 ps-4">Realización y libertad</span>
+            <span className="uppercase font-prompt-semibold text-lg text-old-silver block pt-3 ps-4">
+              {infoPage[0]?.acf?.nos_atrevimos_a_sonar.titulo_2}
+            </span>
             <p className="text-old-silver font-alata-regular pt-1 ps-4 md:w-2/3 leading-5">
-              El éxito comienza cuando una modelo se siente libre, respetada y acompañada para brillar.
+              {infoPage[0]?.acf?.nos_atrevimos_a_sonar.descripcion_2}
             </p>
           </div>
         </div>

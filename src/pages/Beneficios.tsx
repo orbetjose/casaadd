@@ -1,17 +1,25 @@
 import type { MouseEvent } from "react";
-import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import Marcas from "../components/Marcas";
 import Convenios from "../components/Convenios";
 import { dataBeneficios } from "../data/data";
+import { useEffect, useState } from "react";
+import { getPageInfo } from "../helpers/wp";
+import type { infoPageBeneficios } from "../types";
 
 export default function Beneficios() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
   const [selectedInfo, setSelectedInfo] = useState(1);
-  const [beneficios] = useState(dataBeneficios);
+  const [infoPage, setPageInfo] = useState<infoPageBeneficios[]>([]);
+  const beneficios = dataBeneficios;
 
-  console.log(beneficios);
+  useEffect(() => {
+    getPageInfo("beneficios")
+      .then((data) => setPageInfo(data))
+      .catch((error) => console.error("Error fetching infoPage:", error));
+  }, []);
+
   const activeInfo = (e: MouseEvent<HTMLElement>) => {
     setSelectedInfo(+e.currentTarget.id);
   };
@@ -21,12 +29,12 @@ export default function Beneficios() {
       <section className="relative md:max-h-[95vh] 2xl:h-[70vh] ">
         <picture>
           <img
-            src={`${domain}wp-content/uploads/2025/11/Banner01-beneficios.webp`}
+            src={infoPage[0]?.acf?.banner?.url}
             className="w-full object-cover md:max-h-[95vh] md:block hidden 2xl:h-[70vh] 2xl:object-bottom"
             alt="Banner beneficios Casa ADD"
           />
           <img
-            src={`${domain}wp-content/uploads/2025/11/Banner01-3.webp`}
+            src={infoPage[0]?.acf?.banner_responsive?.url}
             className="md:hidden"
             alt="Banner beneficios Casa ADD"
           />
@@ -66,168 +74,26 @@ export default function Beneficios() {
                 },
               }}
               className="">
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="1">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/01-Trafico-y-posicionamiento-en-plataforma-1.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">
-                    Trafico y posicionamiento en plataforma
-                  </span>
-                  <span className="font-alata-regular text-old-silver ">Posiciónate alto, crece rápido.</span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="2">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/02-Monitoreo.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Monitoreo</span>
-                  <span className="font-alata-regular text-old-silver ">No estás sola frente a la cámara.</span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="3">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/03-Perfilamiento.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Perfilamiento</span>
-                  <span className="font-alata-regular text-old-silver leading-5">
-                    Hacemos de tu esencia, una marca personal.
-                  </span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="4">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/04-Produccion-de-ontenidos.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Producción de contenidos</span>
-                  <span className="font-alata-regular text-old-silver ">Tu imagen, tu historia, tu estilo.</span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="5">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/05-capacitacion.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Capacitación</span>
-                  <span className="font-alata-regular text-old-silver ">No es suerte, es preparación estratégica.</span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="6">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/06-tecnologia.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Tecnología (IT / OIT)</span>
-                  <span className="font-alata-regular text-old-silver ">
-                    Si algo falla, estamos ahí antes de que lo notes.
-                  </span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="7">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/07-Styling.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Styling</span>
-                  <span className="font-alata-regular text-old-silver ">Tu imagen habla antes que tú.</span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="8">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/08-Asesoria-contable.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Asesoría contable y legal</span>
-                  <span className="font-alata-regular text-old-silver ">Trabaja con tranquilidad financiera.</span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="9">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/09-Bienestar.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Bienestar</span>
-                  <span className="font-alata-regular text-old-silver ">Estar bien es parte del éxito.</span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="10">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/10-Espacios-logistica.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">Espacios, Logística y aseo</span>
-                  <span className="font-alata-regular text-old-silver ">
-                    Transformamos cada room en un espacio listo para brillar.
-                  </span>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="">
-                <div
-                  className="flex flex-col cursor-pointer"
-                  onClick={activeInfo}
-                  id="11">
-                  <img
-                    src={`${domain}wp-content/uploads/2025/10/11-Add-Creators.png`}
-                    className="h-80 md:h-70 w-full object-cover mb-2"
-                    alt=""
-                  />
-                  <span className="font-prompt-semibold text-dark-silver text-lg ">ADD Creators</span>
-                  <span className="font-alata-regular text-old-silver ">Tu contenido con propósito.</span>
-                </div>
-              </SwiperSlide>
+              {infoPage.length > 0 &&
+                infoPage[0].acf.beneficios.map((beneficio, index) => (
+                  <SwiperSlide className="" key={index}>
+                    <div
+                      className="flex flex-col cursor-pointer"
+                      onClick={activeInfo}
+                      id={(index + 1).toString()}>
+                      <img
+                        src={beneficio.imagen.url}
+                        className="h-80 md:h-70 w-full object-cover mb-2"
+                        alt=""
+                      />
+                      <span className="font-prompt-semibold text-dark-silver text-lg ">
+                        {beneficio.titulo}
+                      </span>
+                      <span className="font-alata-regular text-old-silver ">{beneficio.descripcion }</span>
+                    </div>
+                  </SwiperSlide>
+                ))}
+
             </Swiper>
           </div>
         </div>
@@ -260,7 +126,7 @@ export default function Beneficios() {
           <picture>
             <img
               className="w-full h-[35vh] md:h-[70vh] object-cover object-top"
-              src={`${domain}wp-content/uploads/2025/11/banner-abajo-beneficios.webp`}
+              src={infoPage[0]?.acf?.banner_casadd}
               alt=""
             />
           </picture>
@@ -271,7 +137,7 @@ export default function Beneficios() {
           </p>
         </div>
       </section>
-      <section className="md:mt-16 py-10 bg-light-silver">
+      <section className=" py-10 bg-light-silver">
         <Convenios />
       </section>
     </>

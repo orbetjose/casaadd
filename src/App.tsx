@@ -28,7 +28,7 @@ function App() {
           element={<Quienes />}
         />
         <Route
-          path="/contacto"
+          path="/trabaja-con-nosotros"
           element={<Contacto />}
         />
         <Route

@@ -1,22 +1,31 @@
 import AOS from "aos";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import BannerUnete from "../components/BannerUnete";
 import Marcas from "../components/Marcas";
 import Galeria from "../components/Galeria";
+import { getPageInfo } from "../helpers/wp";
+import type { infoPageHome } from "../types";
 
 export default function Home() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
+  const [infoPage, setPageInfo] = useState<infoPageHome[]>([]);
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
+    getPageInfo("casa-add")
+      .then((data) => setPageInfo(data))
+      .catch((error) => console.error("Error fetching infoPage:", error));
   }, []);
+
+  console.log(infoPage);
 
   return (
     <>
       <section className="relative md:h-[90vh] 2xl:h-[70vh] ">
         <picture>
           <img
-            src={`${domain}wp-content/uploads/2025/11/bannerhome.webp`}
+            src={infoPage[0]?.acf?.banner?.url}
             className="w-full object-cover md:h-[90vh] 2xl:h-[70vh] md:block hidden"
             alt="Banner home Casa ADD"
           />
@@ -29,9 +38,9 @@ export default function Home() {
       </section>
       <section className="pt-10">
         <Galeria
-          foto1={`${domain}wp-content/uploads/2025/11/foto1.1.webp`}
-          foto2={`${domain}wp-content/uploads/2025/11/foto1.2.webp`}
-          foto3={`${domain}wp-content/uploads/2025/11/foto1.0.webp`}
+          foto1={infoPage[0]?.acf?.galeria[0]?.imagen.url}
+          foto2={infoPage[0]?.acf?.galeria[1]?.imagen.url}
+          foto3={infoPage[0]?.acf?.galeria[2]?.imagen.url}
         />
       </section>
       <Marcas />
@@ -44,42 +53,48 @@ export default function Home() {
           <div className="flex md:flex-row flex-col gap-4">
             <div className="md:w-[20%] font-alata-regular text-old-silver leading-5">
               <img
-                src={`${domain}wp-content/uploads/2025/09/beneficio-1.webp`}
+                src={infoPage[0]?.acf?.beneficios[0]?.imagen.url}
                 className="md:h-90 h-80 w-full object-cover object-top md:object-center"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4 leading-5">Capacitación</p>
-              <p>No es suerte, es preparación estratégica</p>
+              <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4 leading-5">
+                {infoPage[0]?.acf?.beneficios[0]?.titulo}
+              </p>
+              <p>{infoPage[0]?.acf?.beneficios[0]?.texto}</p>
             </div>
             <div className="md:w-[20%] font-alata-regular text-old-silver leading-5">
               <img
-                src={`${domain}wp-content/uploads/2025/09/beneficio-2.webp`}
+                src={infoPage[0]?.acf?.beneficios[1]?.imagen.url}
                 className="h-80 w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4 ">Producción de contenidos</p>
-              <p>Tu imagen, tu historia, tu estilo.</p>
+              <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4 ">
+                {infoPage[0]?.acf?.beneficios[1]?.titulo}
+              </p>
+              <p>{infoPage[0]?.acf?.beneficios[1]?.texto}</p>
             </div>
             <div className="md:w-[20%] font-alata-regular text-old-silver leading-5">
               <img
-                src={`${domain}wp-content/uploads/2025/09/beneficio-3.webp`}
+                src={infoPage[0]?.acf?.beneficios[2]?.imagen.url}
                 className="h-80 w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4 ">Styling</p>
-              <p>Tu imagen habla antes que tú.</p>
+              <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4 ">
+                {infoPage[0]?.acf?.beneficios[2]?.titulo}
+              </p>
+              <p>{infoPage[0]?.acf?.beneficios[2]?.texto}</p>
             </div>
 
             <div className="md:w-[40%] font-alata-regular text-old-silver leading-5">
               <img
-                src={`${domain}wp-content/uploads/2025/09/beneficio-4.webp`}
+                src={infoPage[0]?.acf?.beneficios[3]?.imagen.url}
                 className="md:h-70 h-80 w-full object-cover"
                 alt=""
               />
               <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4">
-                Trafico y posicionamiento en plataforma
+                {infoPage[0]?.acf?.beneficios[3]?.titulo}
               </p>
-              <p>Posiciónate alto, crece rápido.</p>
+              <p>{infoPage[0]?.acf?.beneficios[3]?.texto}</p>
             </div>
           </div>
         </div>
@@ -90,29 +105,29 @@ export default function Home() {
             <h3 className="ps-4 pb-4 font-alata-regular font-bold uppercase text-lg text-old-silver">Ser modelo</h3>
             <div className="overflow-hidden">
               <img
-                src={`${domain}wp-content/uploads/2025/09/banner-modelo.png`}
+                src={infoPage[0]?.acf?.ser_modelo?.imagen}
                 alt="Imagen ser modelo"
                 className="2xl:h-[65vh] md:h-[75vh] w-full object-contain 2xl:object-cover 2xl:object-bottom-right hover:scale-110 transition-all duration-200"
               />
             </div>
 
-            <p className="ps-4 pt-2 uppercase font-prompt-semibold font-bold">Déjanos descubrir tu potencial</p>
-            <p className="ps-4 pt-1 uppercase font-alata-regular md:max-w-2/3">
-              Unete al equipo más grande de modelos web cam en colombia y lograr los sueños que quieres cumplir.
-            </p>
+            <p className="ps-4 pt-2 uppercase font-prompt-semibold font-bold">{infoPage[0]?.acf?.ser_modelo?.titulo}</p>
+            <p className="ps-4 pt-1 uppercase font-alata-regular md:max-w-2/3">{infoPage[0]?.acf?.ser_modelo?.texto}</p>
           </div>
           <div className="flex-1 text-old-silver pt-6 md:pt-0">
             <h3 className="ps-4 pb-4 font-alata-regular font-bold uppercase text-lg text-pink">Ser monitor</h3>
             <div className="overflow-hidden">
               <img
-                src={`${domain}wp-content/uploads/2025/09/banner-monitor.png`}
+                src={infoPage[0]?.acf?.ser_monitor?.imagen.url}
                 className="2xl:h-[65vh] md:h-[75vh] w-full object-contain 2xl:object-cover object-bottom hover:scale-110 transition-all duration-200 "
                 alt="Imagen ser monitor"
               />
             </div>
-            <p className="ps-4 pt-2 uppercase font-prompt-semibold font-bold">El monitor es más que apoyo técnico.</p>
+            <p className="ps-4 pt-2 uppercase font-prompt-semibold font-bold">
+              {infoPage[0]?.acf?.ser_monitor?.titulo}
+            </p>
             <p className="ps-4 pt-1 uppercase font-alata-regular md:max-w-2/3">
-              Es la persona que acompaña, guía y motiva para que cada transmisión sea segura y exitosa.
+              {infoPage[0]?.acf?.ser_monitor?.texto}
             </p>
           </div>
         </div>
@@ -121,7 +136,7 @@ export default function Home() {
         <div className="md:h-[75vh] 2xl:h-[70vh] h-screen relative">
           <img
             className="md:h-[75vh] 2xl:h-[70vh] h-screen w-full object-cover absolute"
-            src={`${domain}wp-content/uploads/2025/11/modelo-proyeccion-foto.webp`}
+            src={infoPage[0]?.acf?.fondo_contador?.url}
             alt=""
           />
           <div className="absolute w-full top-1/2 left-1/2 translate-middle">
@@ -158,18 +173,7 @@ export default function Home() {
                   <CountUp
                     enableScrollSpy
                     scrollSpyOnce
-                    end={2}
-                    duration={1}
-                  />
-                </span>
-                <span className="block text-center text-xl">Sedes</span>
-              </div>
-              <div className="">
-                <span className="block text-center text-4xl pb-4">
-                  <CountUp
-                    enableScrollSpy
-                    scrollSpyOnce
-                    end={7}
+                    end={8}
                     duration={1}
                   />
                 </span>
@@ -194,7 +198,7 @@ export default function Home() {
       <section className="">
         <div className="md:max-w-6xl mx-auto pb-16">
           <h3 className="text-center font-alata-regular text-old-silver uppercase text-2xl font-bold pb-12">
-            Entrenamiento continuo
+            Entrenamiento continúo
           </h3>
           <div className="md:flex-row flex flex-col gap-6 2xl:gap-0 2xl:justify-between justify-center font-prompt-regular text-old-silver md:gap-12 text-lg">
             <div>
@@ -249,7 +253,7 @@ export default function Home() {
             </div>
           </div>
           <a
-            href="#"
+            href="/beneficios"
             className="block mx-auto bg-old-silver text-white font-prompt-regular w-fit mt-12 2xl:mt-16 px-4 py-1 rounded text-lg">
             Más sobre ADD Training
           </a>
@@ -275,22 +279,22 @@ export default function Home() {
         <div className="md:flex-row flex justify-center flex-col gap-8">
           <div className="flex-1">
             <img
-              src={`${domain}wp-content/uploads/2025/11/ADDSTAR01.webp`}
+              src={infoPage[0]?.acf?.fotos_mes?.foto.url}
               alt="Casa ADD Octubre poster"
               className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top border-b-1 border-pink-postale"
             />
             <span className="uppercase font-prompt-semibold text-lg text-old-silver inline-block pt-2">
-              add star Octubre
+              {infoPage[0]?.acf?.fotos_mes?.mes}
             </span>
           </div>
           <div className="md:pt-30 flex-1">
             <img
-              src={`${domain}wp-content/uploads/2025/11/ADDSTAR03.webp`}
+              src={infoPage[0]?.acf?.fotos_mes?.foto_2.url}
               alt="Casa ADD Noviembre poster"
               className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top border-b-1 border-pink-postale"
             />
             <span className="uppercase font-prompt-semibold text-lg text-old-silver inline-block pt-2">
-              add star Noviembre
+              {infoPage[0]?.acf?.fotos_mes?.mes_2}
             </span>
           </div>
         </div>

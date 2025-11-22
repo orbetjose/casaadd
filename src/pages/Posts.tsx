@@ -9,7 +9,6 @@ export default function Posts() {
   const [infoPost, setinfoPost] = useState<infoPost[]>([]);
   const { slug } = useParams<{ slug: string }>();
   const [loading, setLoading] = useState(true);
-
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {

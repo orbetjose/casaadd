@@ -24,7 +24,7 @@ export default function BannerUnete() {
             <a
               href="/contacto"
               className="block bg-white w-fit mx-auto py-2 px-3 mt-5 -mb-13 font-alata-regular uppercase">
-              Únete ahora
+              Trabaja con nosotros
             </a>
           </div>
         </div>
