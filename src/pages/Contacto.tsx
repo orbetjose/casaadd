@@ -11,6 +11,7 @@ export default function Contacto() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
 
   const [typeQuestion, setTypeQuestion] = useState("modelo");
+  const [isOpen, setIsOpen] = useState(true);
 
   const activeQuestion = (e: MouseEvent<HTMLElement>) => {
     e.currentTarget.classList.toggle("!max-h-[500px]");
@@ -458,7 +459,7 @@ export default function Contacto() {
           <div className="">{typeQuestion === "monitor" ? <ContactFormMonitor /> : <ContactFormModelo />}</div>
         </div>
       </section>
-      <Galeria 
+      <Galeria
         foto1={`${domain}wp-content/uploads/2025/11/Foto-01.1.webp`}
         foto2={`${domain}wp-content/uploads/2025/11/Foto-01.0.webp`}
         foto3={`${domain}wp-content/uploads/2025/11/Foto-01.2.webp`}
@@ -466,6 +467,45 @@ export default function Contacto() {
       <section className="pt-16 py-10 bg-light-silver">
         <Convenios />
       </section>
+      {isOpen && (
+        <div className="modal-acceptence">
+          <div className="flex items-center px-6 md:px-0 flex-col md:max-w-2xl mx-auto absolute top-1/2 left-1/2 translate-middle w-full gap-4">
+            <div>
+              <img
+                src={`${domain}wp-content/uploads/2025/11/logo-add-3.png`}
+                alt=""
+                className="h-14"
+              />
+            </div>
+            <div className="space-y-2 font-prompt-light text-sm md:text-base text-center text-white border border-white px-4 pt-4 pb-8">
+              <p>
+                En Casa ADD, la seguridad y el profesionalismo son fundamentales. Por ello, queremos garantizar que todo
+                contacto y proceso de selección se realice de manera segura y transparente.
+              </p>
+              <p>
+                No respondas a ninguna persona que afirme trabajar o{" "}
+                <span className="font-prompt-semibold">
+                  estar asociada con Casa ADD sin verificar primero su identidad a través de nuestros canales oficiales
+                </span>
+                .
+              </p>
+              <p>
+                Casa ADD nunca solicitará fotografías desnudo/a, en ropa interior ni de contenido sexual, y no exige
+                pagos, inscripciones o transferencias de ningún tipo para participar en castings o procesos internos.
+              </p>
+              <p className="font-prompt-semibold">
+                Si recibes mensajes sospechosos, solicitudes inusuales o cualquier comunicación que no provenga de
+                nuestros canales verificados, por favor repórtalo inmediatamente.
+              </p>
+            </div>
+            <button
+              className="font-alata-regular -mt-8 bg-white px-4 py-2 uppercase text-lg cursor-pointer rounded"
+              onClick={() => setIsOpen(!isOpen)}>
+              Aceptar
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -5,7 +5,7 @@ export const dataBeneficios = [
     subtitulo: "Posiciónate alto, crece rápido.",
     texto:
       "Optimizamos tu posicionamiento digital y potenciamos tu tráfico en línea, implementando estrategias efectivas que aumentan tu visibilidad, atraen a tu audiencia ideal.",
-    image: "wp-content/uploads/2025/10/01-Trafico-y-posicionamiento-en-plataforma.png",
+    image: "wp-content/uploads/2025/11/02-tradico-y-posicionamiento-grande.webp",
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ export const dataBeneficios = [
     subtitulo: "No es suerte, es preparación estratégica.",
     texto:
       "Contamos con programas de formación enfocados en potenciar tu seguridad, tu presencia frente a cámara y tus habilidades comerciales.",
-    image: "wp-content/uploads/2025/10/05-capacitacion-1.png",
+    image: "wp-content/uploads/2025/11/03-capacitacion-grande.webp",
   },
   {
     id: 6,
@@ -59,7 +59,7 @@ export const dataBeneficios = [
     subtitulo: "Trabaja con tranquilidad financiera.",
     texto:
       "Ayudándote a manejar tus ingresos de forma segura, cumplir con obligaciones fiscales y proteger tu actividad dentro del marco legal.",
-    image: "wp-content/uploads/2025/10/08-Asesoria-contable-1.png",
+    image: "wp-content/uploads/2025/11/04-asesoria-grande.webp",
   },
   {
     id: 9,

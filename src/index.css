@@ -277,8 +277,10 @@ body {
   height: 12px;
 }
 
-.seccion-blog h1, .seccion-blog h2, .seccion-blog h3 {
-  font-family: 'Alata-Regular', sans-serif;
+.seccion-blog h1,
+.seccion-blog h2,
+.seccion-blog h3 {
+  font-family: "Alata-Regular", sans-serif;
   color: var(--color-old-silver);
   font-size: var(--text-2xl);
   line-height: 1.8rem;
@@ -286,7 +288,7 @@ body {
 }
 
 .seccion-blog h4 {
-  font-family: 'Alata-Regular', sans-serif;
+  font-family: "Alata-Regular", sans-serif;
   color: var(--color-old-silver);
   font-size: var(--text-xl);
   margin-bottom: 10px;
@@ -298,8 +300,17 @@ body {
   margin-bottom: 20px;
 }
 
-.seccion-blog .contenido p{
+.seccion-blog .contenido p {
   margin-bottom: 20px;
+}
+
+.modal-acceptence {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(15px);
+  z-index: 10;
+
 }
 
 @media (min-width: 1024px) {
