@@ -10,15 +10,19 @@ import type { infoPageHome } from "../types";
 export default function Home() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
   const [infoPage, setPageInfo] = useState<infoPageHome[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
     getPageInfo("casa-add")
-      .then((data) => setPageInfo(data))
-      .catch((error) => console.error("Error fetching infoPage:", error));
+      .then((data) => {
+        setPageInfo(data);
+      })
+      .catch((error) => console.error("Error fetching infoPage:", error))
+      .finally(() => setLoading(false));
   }, []);
 
-
+  if (loading) return <p>Cargando...</p>;
   return (
     <>
       <section className="relative md:h-[90vh] 2xl:h-[70vh] ">

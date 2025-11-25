@@ -12,13 +12,20 @@ export default function Beneficios() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
   const [selectedInfo, setSelectedInfo] = useState(1);
   const [infoPage, setPageInfo] = useState<infoPageBeneficios[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const beneficios = dataBeneficios;
 
   useEffect(() => {
     getPageInfo("beneficios")
-      .then((data) => setPageInfo(data))
-      .catch((error) => console.error("Error fetching infoPage:", error));
+      .then((data) => {
+        setPageInfo(data);
+      })
+      .catch((error) => console.error("Error fetching infoPage:", error))
+      .finally(() => setLoading(false));
   }, []);
+
+  if (loading) return <p>Cargando...</p>;
 
   const activeInfo = (e: MouseEvent<HTMLElement>) => {
     setSelectedInfo(+e.currentTarget.id);
@@ -76,7 +83,9 @@ export default function Beneficios() {
               className="">
               {infoPage.length > 0 &&
                 infoPage[0].acf.beneficios.map((beneficio, index) => (
-                  <SwiperSlide className="" key={index}>
+                  <SwiperSlide
+                    className=""
+                    key={index}>
                     <div
                       className="flex flex-col cursor-pointer"
                       onClick={activeInfo}
@@ -86,14 +95,11 @@ export default function Beneficios() {
                         className="h-80 md:h-70 w-full object-cover mb-2"
                         alt=""
                       />
-                      <span className="font-prompt-semibold text-dark-silver text-lg ">
-                        {beneficio.titulo}
-                      </span>
-                      <span className="font-alata-regular text-old-silver ">{beneficio.descripcion }</span>
+                      <span className="font-prompt-semibold text-dark-silver text-lg ">{beneficio.titulo}</span>
+                      <span className="font-alata-regular text-old-silver ">{beneficio.descripcion}</span>
                     </div>
                   </SwiperSlide>
                 ))}
-
             </Swiper>
           </div>
         </div>

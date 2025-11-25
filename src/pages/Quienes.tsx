@@ -4,12 +4,18 @@ import type { infoPageQuienes } from "../types";
 
 export default function Quienes() {
   const [infoPage, setPageInfo] = useState<infoPageQuienes[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getPageInfo("quienes-somos")
-      .then((data) => setPageInfo(data))
-      .catch((error) => console.error("Error fetching infoPage:", error));
+      .then((data) => {
+        setPageInfo(data);
+      })
+      .catch((error) => console.error("Error fetching infoPage:", error))
+      .finally(() => setLoading(false));
   }, []);
+
+  if (loading) return <p>Cargando...</p>;
   return (
     <>
       <section className="relative md:max-h-[95vh]  2xl:h-[70vh]">
@@ -56,9 +62,7 @@ export default function Quienes() {
         <div className=" md:max-w-5xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
           <div className="text-old-silver pb-8 2xl:ps-22">
             <h3 className="font-alata-regular text-2xl font-bold pb-2 uppercase">quiénes somos</h3>
-            <p className="font-prompt-regular md:w-1/2">
-              {infoPage[0]?.acf?.quienes_somos.texto}
-            </p>
+            <p className="font-prompt-regular md:w-1/2">{infoPage[0]?.acf?.quienes_somos.texto}</p>
           </div>
           <div className="md:flex-row flex justify-center flex-col gap-8 md:gap-0">
             <div className="flex-1 md:-mr-18">
@@ -100,10 +104,10 @@ export default function Quienes() {
                 className="h-90 w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">{infoPage[0]?.acf?.somos_casa_add[0].titulo}</p>
-              <p className="leading-5">
-                {infoPage[0]?.acf?.somos_casa_add[0].texto}
+              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">
+                {infoPage[0]?.acf?.somos_casa_add[0].titulo}
               </p>
+              <p className="leading-5">{infoPage[0]?.acf?.somos_casa_add[0].texto}</p>
             </div>
             <div className="md:w-[20%] font-alata-regular text-old-silver leading-5">
               <img
@@ -111,7 +115,9 @@ export default function Quienes() {
                 className="h-85 w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">{infoPage[0]?.acf?.somos_casa_add[1].titulo}</p>
+              <p className="uppercase font-semibold font-prompt-semibold pt-4 ">
+                {infoPage[0]?.acf?.somos_casa_add[1].titulo}
+              </p>
               <p className="leading-5">{infoPage[0]?.acf?.somos_casa_add[1].texto}</p>
             </div>
             <div className="md:w-[60%] font-alata-regular text-old-silver leading-5">
@@ -120,7 +126,9 @@ export default function Quienes() {
                 className="w-full object-cover"
                 alt=""
               />
-              <p className="uppercase font-semibold font-prompt-semibold pt-4">{infoPage[0]?.acf?.somos_casa_add[2].titulo}</p>
+              <p className="uppercase font-semibold font-prompt-semibold pt-4">
+                {infoPage[0]?.acf?.somos_casa_add[2].titulo}
+              </p>
               <p className="leading-5">{infoPage[0]?.acf?.somos_casa_add[2].texto}</p>
             </div>
           </div>
@@ -129,9 +137,7 @@ export default function Quienes() {
       <section className="py-16 ">
         <div className="text-old-silver pb-8 md:max-w-6xl 2xl:max-w-8xl mx-auto px-4 md:px-0">
           <h3 className="font-alata-regular text-2xl font-bold pb-2 uppercase">Nos atrevimos a soñar</h3>
-          <p className="font-prompt-regular md:w-1/2">
-            {infoPage[0]?.acf?.nos_atrevimos_a_sonar.texto}
-          </p>
+          <p className="font-prompt-regular md:w-1/2">{infoPage[0]?.acf?.nos_atrevimos_a_sonar.texto}</p>
         </div>
         <div className="md:flex-row flex justify-center flex-col gap-8 md:gap-0 2xl:max-w-8xl 2xl:mx-auto">
           <div className="flex-1 ">

@@ -26,7 +26,6 @@ export default function Posts() {
     }
   }, [slug]);
 
-  console.log(infoPost);
   if (loading) return <p>Cargando...</p>;
   if (notFound) return <NotFound />;
   return (
