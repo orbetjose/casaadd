@@ -57,8 +57,56 @@ export default function Beneficios() {
             <button className="swiper-button-prev swiper-button-prev-beneficios"></button>
             <button className="swiper-button-next swiper-button-next-beneficios"></button>
             <div className="swiper-pagination-beneficios"></div>
+            {infoPage[0]?.acf?.beneficios.length > 0 && (
+              <Swiper
+                watchOverflow={false}
+                loop={false}
+                modules={[Navigation, Pagination]}
+                navigation={{
+                  prevEl: ".swiper-button-prev-beneficios",
+                  nextEl: ".swiper-button-next-beneficios",
+                }}
+                pagination={{
+                  dynamicBullets: true,
+                  el: ".swiper-pagination-beneficios",
+                }}
+                breakpoints={{
+                  320: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                    spaceBetween: 30,
+                  },
+                }}
+                className="!hidden md:!block">
+                {infoPage.length > 0 &&
+                  infoPage[0].acf.beneficios.map((beneficio, index) => (
+                    <SwiperSlide
+                      className=""
+                      key={index}>
+                      <div
+                        className="flex flex-col cursor-pointer"
+                        onClick={activeInfo}
+                        id={(index + 1).toString()}>
+                        <img
+                          src={beneficio.imagen.url}
+                          className="h-80 md:h-70 w-full object-cover mb-2"
+                          alt=""
+                        />
+                        <span className="font-prompt-semibold text-dark-silver text-lg ">{beneficio.titulo}</span>
+                        <span className="font-alata-regular text-old-silver ">{beneficio.descripcion}</span>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            )}
 
             <Swiper
+              onSlideChange={(swiper) => {
+                setSelectedInfo(swiper.activeIndex + 1);
+              }}
               watchOverflow={false}
               loop={false}
               modules={[Navigation, Pagination]}
@@ -80,7 +128,7 @@ export default function Beneficios() {
                   spaceBetween: 30,
                 },
               }}
-              className="">
+              className="md:!hidden">
               {infoPage.length > 0 &&
                 infoPage[0].acf.beneficios.map((beneficio, index) => (
                   <SwiperSlide

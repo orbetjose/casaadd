@@ -25,7 +25,7 @@ export default function Home() {
   if (loading) return <p>Cargando...</p>;
   return (
     <>
-      <section className="relative md:h-[90vh] 2xl:h-[70vh] ">
+      <section className="relative md:h-[90vh] 2xl:h-[70vh]">
         <picture>
           <img
             src={infoPage[0]?.acf?.banner?.url}
@@ -57,7 +57,7 @@ export default function Home() {
             <div className="md:w-[20%] font-alata-regular text-old-silver leading-5">
               <img
                 src={infoPage[0]?.acf?.beneficios[0]?.imagen.url}
-                className="md:h-90 h-80 w-full object-cover object-top md:object-center"
+                className="md:h-90 h-80 w-full object-cover  md:object-center"
                 alt=""
               />
               <p className="uppercase font-semibold font-prompt-semibold text-lg pt-4 leading-5">
@@ -284,7 +284,7 @@ export default function Home() {
             <img
               src={infoPage[0]?.acf?.fotos_mes?.foto.url}
               alt="Casa ADD Octubre poster"
-              className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top border-b-1 border-pink-postale"
+              className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top"
             />
             <span className="uppercase font-prompt-semibold text-lg text-old-silver inline-block pt-2">
               {infoPage[0]?.acf?.fotos_mes?.mes}
@@ -294,7 +294,7 @@ export default function Home() {
             <img
               src={infoPage[0]?.acf?.fotos_mes?.foto_2.url}
               alt="Casa ADD Noviembre poster"
-              className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top border-b-1 border-pink-postale"
+              className="max-h-[100vh] 2xl:max-h-[80vh] w-full object-cover object-top"
             />
             <span className="uppercase font-prompt-semibold text-lg text-old-silver inline-block pt-2">
               {infoPage[0]?.acf?.fotos_mes?.mes_2}
@@ -303,22 +303,16 @@ export default function Home() {
         </div>
       </section>
       <section className="pb-16">
-        <div className="md:max-w-6xl mx-auto pb-6 px-4 md:px-0">
+        <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto pb-6 px-4 md:px-0">
           <h3 className="font-alata-regular text-pink text-2xl font-bold uppercase">
             Lo que más me gusta de <br /> CASA ADD
           </h3>
         </div>
-        <div>
-          <picture>
-            <img
-              className="w-full h-[75vh] 2xl:h-[70vh] object-cover"
-              src={`${domain}wp-content/uploads/2025/09/video-2.webp`}
-              alt=""
-            />
-          </picture>
+        <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto pb-6 px-4 md:px-0">
+          <video className="w-full h-[75vh] 2xl:h-[75vh] object-cover"  autoPlay muted loop src={`${domain}wp-content/uploads/2025/12/Video-Prueba-01.mp4`}></video>
         </div>
       </section>
-      <section className="relative">
+      <section className="relative" >
         <div className="absolute w-full px-4 md:px-0 top-1/2 left-1/2 translate-middle text-white">
           <h4 className="font-alata-regular uppercase text-center text-lg md:text-3xl pb-2">#demodeloamodelo</h4>
           <p className="font-prompt-regular text-center md:text-lg md:w-2/3 mx-auto">
