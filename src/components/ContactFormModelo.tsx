@@ -51,45 +51,12 @@ export default function ContactFormModelo() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess(false);
 
     try {
-      /*
-    ==========================================
-      1) Guardar en BD (JSON)
-    ==========================================
-    */
-
-      const payloadDB = {
-        form_type: "modelo",
-        name: formData.name,
-        email: formData.email,
-        telefono: formData.telefono,
-        redes: formData.redes,
-        fecha: formData.fecha,
-        horarios: formData.horarios,
-        message: formData.message,
-      };
-
-      const resBD = await fetch(`${domain}wp-json/contact-form/v1/submit-modelo`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payloadDB),
-      });
-
-      if (!resBD.ok) throw new Error("BD Error");
-
-      setSuccess(true);
-      resetModelo();
-      /*
-    ==========================================
-      2) Enviar correo (FormData + fotos)
-    ==========================================
-    */
-
       const fd = new FormData();
 
-      fd.append("action", "enviar_correo");
-      fd.append("form_type", "modelo");
+      fd.append("action", "guardar_y_enviar_modelo");
 
       fd.append("name", formData.name);
       fd.append("email", formData.email);
@@ -99,18 +66,24 @@ export default function ContactFormModelo() {
       fd.append("horarios", formData.horarios);
       fd.append("message", formData.message);
 
-      // fotos[]
       formData.fotos.forEach((file) => fd.append("fotos[]", file));
 
-      const resMail = await fetch(`${domain}wp-admin/admin-ajax.php`, {
+      const response = await fetch(`${domain}wp-admin/admin-ajax.php`, {
         method: "POST",
         body: fd,
       });
 
-      if (!resMail.ok) throw new Error("Mail Error");
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.data?.message || "Error al enviar el formulario");
+      }
+
+      setSuccess(true);
+      resetModelo();
     } catch (err) {
       console.error(err);
-      setError("No se pudo enviar el formulario");
+      setError(err instanceof Error ? err.message : "No se pudo enviar el formulario");
     } finally {
       setLoading(false);
     }

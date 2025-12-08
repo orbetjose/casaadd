@@ -16,6 +16,7 @@ export default function Quienes() {
   }, []);
 
   if (loading) return <p>Cargando...</p>;
+  
   return (
     <>
       <section className="relative md:max-h-[95vh]  2xl:h-[70vh]">

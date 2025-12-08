@@ -57,6 +57,7 @@ export default function Beneficios() {
             <button className="swiper-button-prev swiper-button-prev-beneficios"></button>
             <button className="swiper-button-next swiper-button-next-beneficios"></button>
             <div className="swiper-pagination-beneficios"></div>
+            <div className="swiper-pagination-beneficios-respon"></div>
             {infoPage[0]?.acf?.beneficios.length > 0 && (
               <Swiper
                 watchOverflow={false}
@@ -111,12 +112,12 @@ export default function Beneficios() {
               loop={false}
               modules={[Navigation, Pagination]}
               navigation={{
-                prevEl: ".swiper-button-prev-beneficios",
-                nextEl: ".swiper-button-next-beneficios",
+                prevEl: ".swiper-button-prev-beneficios-respon",
+                nextEl: ".swiper-button-next-beneficios-respon",
               }}
               pagination={{
                 dynamicBullets: true,
-                el: ".swiper-pagination-beneficios",
+                el: ".swiper-pagination-beneficios-respon",
               }}
               breakpoints={{
                 320: {

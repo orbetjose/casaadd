@@ -226,7 +226,7 @@ body {
 }
 
 .bg-quienes {
-  background-image: url("http://casaadd.local/wp-content/uploads/2025/10/bg-quienes.webp");
+  background-image: url("https://casaadd.com/wp/wp-content/uploads/2025/10/bg-quienes.webp");
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
@@ -263,12 +263,12 @@ body {
 .respuesta-modelo {
   cursor: pointer;
 }
-.swiper-pagination-beneficios {
+.swiper-pagination-beneficios, .swiper-pagination-beneficios-respon {
   position: absolute;
   bottom: -25px !important;
 }
 
-.swiper-pagination-beneficios .swiper-pagination-bullet-active {
+.swiper-pagination-beneficios .swiper-pagination-bullet-active, .swiper-pagination-beneficios-respon .swiper-pagination-bullet-active {
   background-color: #f3315d;
 }
 
@@ -314,7 +314,7 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .swiper-pagination-beneficios {
+  .swiper-pagination-beneficios, .swiper-pagination-beneficios-respon {
     display: none;
   }
 }

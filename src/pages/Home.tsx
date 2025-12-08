@@ -6,6 +6,7 @@ import Marcas from "../components/Marcas";
 import Galeria from "../components/Galeria";
 import { getPageInfo } from "../helpers/wp";
 import type { infoPageHome } from "../types";
+import { useMeta } from "../helpers/useMeta";
 
 export default function Home() {
   const domain = import.meta.env.VITE_WP_DOMAIN;
@@ -21,6 +22,20 @@ export default function Home() {
       .catch((error) => console.error("Error fetching infoPage:", error))
       .finally(() => setLoading(false));
   }, []);
+
+  useMeta({
+    title: "Casa ADD - Nos atrevimos a soñar",
+    description: "Unete al equipo más grande de modelos web cam en bogotá y lograr los sueños que quieres cumplir.",
+    keywords: "eventos, corporativos",
+    canonical: "https://casaadd.com/",
+    og: {
+      title: "Casa ADD - Nos atrevimos a soñar",
+      description: "Unete al equipo más grande de modelos web cam en bogotá y lograr los sueños que quieres cumplir.",
+      type: "website",
+      url: "https://casaadd.com/",
+      site_name: "Casa ADD",
+    },
+  });
 
   if (loading) return <p>Cargando...</p>;
   return (
@@ -302,7 +317,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="pb-16">
+      <section className="pb-16 hidden">
         <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto pb-6 px-4 md:px-0">
           <h3 className="font-alata-regular text-pink text-2xl font-bold uppercase">
             Lo que más me gusta de <br /> CASA ADD

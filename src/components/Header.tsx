@@ -44,9 +44,9 @@ export default function Header() {
             >
               {menuItems.map((item, index) => {
                 let relativePath = new URL(item.permalink).pathname;
-                if (relativePath.includes("test3")) {
+                if (relativePath.includes("wp")) {
                   relativePath = relativePath.replace(
-                    "/test3",
+                    "/wp",
                     ""
                   );
                 }
@@ -90,9 +90,9 @@ export default function Header() {
                 >
                   {menuItems.map((item, index) => {
                     let relativePath = new URL(item.permalink).pathname;
-                    if (relativePath.includes("test3")) {
+                    if (relativePath.includes("wp")) {
                       relativePath = relativePath.replace(
-                        "/test3",
+                        "/wp",
                         ""
                       );
                     }
