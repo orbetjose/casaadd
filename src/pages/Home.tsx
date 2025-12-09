@@ -317,14 +317,14 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="pb-16 hidden">
+      <section className="pb-16 ">
         <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto pb-6 px-4 md:px-0">
           <h3 className="font-alata-regular text-pink text-2xl font-bold uppercase">
             Lo que más me gusta de <br /> CASA ADD
           </h3>
         </div>
         <div className="md:max-w-6xl 2xl:max-w-8xl mx-auto pb-6 px-4 md:px-0">
-          <video className="w-full h-[75vh] 2xl:h-[75vh] object-cover"  autoPlay muted loop src={`${domain}wp-content/uploads/2025/12/Video-Prueba-01.mp4`}></video>
+          <video className="w-full h-[75vh] 2xl:h-[75vh] object-cover"  autoPlay muted loop src={`${domain}wp-content/uploads/2025/12/video-home.mp4`}></video>
         </div>
       </section>
       <section className="relative" >
