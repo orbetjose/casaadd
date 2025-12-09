@@ -26,7 +26,7 @@ export default function Blog() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_KEY = "AIzaSyCRbOAqOLWz-05RUL-Ca-lrCpkc3jT_Nj0";
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
   const MAX_RESULTS = 10;
 
   useEffect(() => {
